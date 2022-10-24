@@ -5,7 +5,7 @@ class Score {
     this.bonusPoints = 0;
   }
 
-  framePoints = (rolls) => {  //calculates score of each individual frame excluding bonus points
+  framePoints = (rolls) => {  //calculates points (exluding bonus points) for each individual frame
     if (rolls[0] === 10) {
       this.points += 10
       return 'strike';
@@ -17,7 +17,7 @@ class Score {
     }
   }
   
-  frameTotal = (frame) => {  //calculates the total number of points for each invdiual frame
+  frameTotal = (frame) => {  //calculates the total number of points (normal points + bonus points) for each invdiual frame
     let result = this.framePoints(frame[1]);
     
     if (result === 'strike') {
@@ -28,7 +28,7 @@ class Score {
     return `frame ${frame[0]}: ${this.points + this.bonusPoints} points`;
   }
 
-  spareBonus = (frame) => {
+  spareBonus = (frame) => { //calculates the number of bonus points obtained for an individual frame for a spare
     if (frame[0] < 10) {
       let nextFrame = parseInt(frame[0]) + 1
       this.bonusPoints += this.scoreCard[nextFrame][0];
@@ -37,7 +37,7 @@ class Score {
     }
   }
 
-  strikeBonus = (frame) => {
+  strikeBonus = (frame) => { //calculates the number of bonus points obtained for an individual frame for a strike
     let nextFrame = parseInt(frame[0]) + 1
     let thirdFrame = parseInt(frame[0]) + 2
 
@@ -50,7 +50,7 @@ class Score {
     }
   }
 
-  frameUnderNine = (nextFrame, thirdFrame) => {
+  frameUnderNine = (nextFrame, thirdFrame) => { // method called within the strikeBonus method
     if ((this.scoreCard[nextFrame][0] == 10) && (this.scoreCard[thirdFrame][0] === 10)) {
       this.bonusPoints += this.scoreCard[nextFrame][0] + this.scoreCard[thirdFrame][0];
     } else if ((this.scoreCard[nextFrame][0] == 10) && (this.scoreCard[thirdFrame][0] != 10)) {
@@ -60,7 +60,7 @@ class Score {
     }
   }
 
-  gameTotal() {
+  gameTotal() { //calculates the total points for the game which is broken down by each frame
     console.log(Object.entries(this.scoreCard).map(this.frameTotal));
   }
 }
