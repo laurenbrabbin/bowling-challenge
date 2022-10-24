@@ -1,7 +1,7 @@
 class Score {
   constructor(scorecard) {
     this.scoreCard = scorecard
-    this.points= 0
+    this.points = 0
     this.bonusPoints = 0;
   }
 
